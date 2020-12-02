@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Todo = sequelize.define('Todo', {
-    text: {
+  const User = sequelize.define('User', {
+    name: {
       type: DataTypes.STRING,
       // AllowNull is a flag that restricts a todo from being entered if it doesn't
       // have a text value
@@ -10,12 +10,6 @@ module.exports = (sequelize, DataTypes) => {
         len: [1, 140],
       },
     },
-    complete: {
-      type: DataTypes.BOOLEAN,
-      // defaultValue is a flag that defaults a new todos complete value to false if
-      // it isn't supplied one
-      defaultValue: false,
-    },
   });
-  return Todo;
+  return User;
 };
