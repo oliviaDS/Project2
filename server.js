@@ -18,6 +18,15 @@ const db = require('./models');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+app.get("/", function(req, res) {
+ res.render("index", { user: score});
+});
+
+
 // Static directory
 app.use(express.static('public'));
 
