@@ -11,26 +11,26 @@ const db = require('../models');
 // Routes
 // =============================================================
 module.exports = function (app) {
-  // GET route for getting all of the todos
-  app.get('/api/todos', (req, res) => {
+  // GET route for getting all of the scores
+  app.get('/api/Score', (req, res) => {
     // findAll returns all entries for a table when used with no options
-    db.Todo.findAll({}).then((dbTodo) => {
+    db.dbScore.findAll({}).then((dbHealth) => {
       // We have access to the todos as an argument inside of the callback function
-      res.json(dbTodo);
+      res.json(dbHealth);
     });
   });
 
-  // POST route for saving a new todo
-  app.post('/api/todos', (req, res) => {
+  // POST route for saving a new score
+  app.post('/api/Health', (req, res) => {
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
-    db.Todo.create({
-      text: req.body.text,
+    db.score.create({
+      number: req.body.number,
       complete: req.body.complete,
-    }).then((dbTodo) => {
+    }).then((dbHealth) => {
       // We have access to the new todo as an argument inside of the callback function
-      res.json(dbTodo);
+      res.json(dbHealth);
     })
       .catch((err) => {
       // Whenever a validation or flag fails, an error is thrown
