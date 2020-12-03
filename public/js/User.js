@@ -13,17 +13,7 @@ $(document).ready(() => {
     // Getting Score from database when page loads
     getUserName();
   
-    // This function resets the todos displayed with new user from the database
-    function initializeRows() {
-      $todoContainer.empty();
-      const rowsToAdd = [];
-      for (let i = 0; i < todos.length; i++) {
-        rowsToAdd.push(createNewRow(todos[i]));
-      }
-      $todoContainer.prepend(rowsToAdd);
-    }
-  
-    // This function grabs todos from the database and updates the view
+    // This is to get the score from database
     function getScore() {
       $.get('/api/Score', (data) => {
         Score = data;
@@ -31,13 +21,6 @@ $(document).ready(() => {
       });
     }
   
-    
-  
-    
-  
-    
-  
-    
     // This function updates score in our database
     function updateScore(Score) {
       $.ajax({
