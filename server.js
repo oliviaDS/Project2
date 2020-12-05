@@ -4,6 +4,8 @@
 // ******************************************************************************
 // *** Dependencies
 // =============================================================
+const {createSeedData} = require('./utils/createSeedData');
+
 const express = require('express');
 
 // Sets up the Express App
@@ -38,6 +40,10 @@ require('./routes/answer-api-routes.js')(app);
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync({ force: true }).then(() => {
+
+  // Seed Datas`
+  createSeedData();
+
   app.listen(PORT, () => {
     console.log(`App listening on PORT ${PORT}`);
   });

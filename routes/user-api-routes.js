@@ -32,6 +32,8 @@ module.exports = function (app) {
     });
   });
 
+
+// Delete button
   app.delete('/api/user/:id', (req, res) => {
     db.User.destroy({
       where: {

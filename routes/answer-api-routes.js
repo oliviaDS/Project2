@@ -1,4 +1,4 @@
-/ *********************************************************************************
+// *********************************************************************************
 // api-routes.js - this file offers a set of routes for displaying and saving data to the db
 // *********************************************************************************
 
@@ -6,72 +6,71 @@
 // =============================================================
 
 // Requiring our models
-var db = require("../models");
+const db = require('../models');
 
 // Routes
 // =============================================================
-module.exports = function(app) {
-
+module.exports = function (app) {
   // GET route for getting all of the posts
-  app.get("/api/answer", function(req, res) {
-    var query = {};
+  app.get('/api/answer', (req, res) => {
+    const query = {};
     if (req.query.user_id) {
       query.UserId = req.query.user_id;
     }
     // Here we add an "include" property to our options in our findAll query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Author
-    db.User.findAll({
+    db.Answer.findAll({
       where: query,
-      include: [db.User]
-    }).then(function(dbUser) {
-      res.json(dbUser);
+      include: [db.User],
+    }).then((dbAnswer) => {
+      res.json(dbAnswer);
     });
   });
 
   // Get route for retrieving a single post
-  app.get("/api/posts/:id", function(req, res) {
+  app.get('/api/answer/:id', (req, res) => {
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Author
-    db.Post.findOne({
+    db.Answer.findAll({
       where: {
-        id: req.params.id
+        UserId: req.params.id,
       },
-      include: [db.Author]
-    }).then(function(dbPost) {
-      res.json(dbPost);
+      include: [db.User],
+    }).then((dbAnswer) => {
+      res.json(dbAnswer);
     });
   });
 
-  // POST route for saving a new post
-  app.post("/api/posts", function(req, res) {
-    db.Post.create(req.body).then(function(dbPost) {
-      res.json(dbPost);
+  // POST route for saving a new answer
+  app.post('/api/answer', (req, res) => {
+    db.Answer.create(req.body).then((dbAnswer) => {
+      res.json(dbAnswer);
     });
   });
 
   // DELETE route for deleting posts
-  app.delete("/api/posts/:id", function(req, res) {
-    db.Post.destroy({
+  app.delete('/api/answer/:id', (req, res) => {
+    db.Answer.destroy({
       where: {
-        id: req.params.id
-      }
-    }).then(function(dbPost) {
-      res.json(dbPost);
+        id: req.params.id,
+      },
+    }).then((dbAnswer) => {
+      res.json(dbAnswer);
     });
   });
 
-  // PUT route for updating posts
-  app.put("/api/posts", function(req, res) {
-    db.Post.update(
+  app.put('/api/answer', (req, res) => {
+    db.Answer.update(
       req.body,
       {
         where: {
-          id: req.body.id
-        }
-      }).then(function(dbPost) {
-      res.json(dbPost);
+          id: req.body.id,
+        },
+      },
+    ).then((dbAnswer) => {
+      res.json(dbAnswer);
     });
   });
 };
