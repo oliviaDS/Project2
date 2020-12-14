@@ -4,10 +4,10 @@
 // ******************************************************************************
 // *** Dependencies
 // =============================================================
-const {createSeedData} = require('./utils/createSeedData');
+
 
 const express = require('express');
-
+var exphbs = require("express-handlebars");
 // Sets up the Express App
 // =============================================================
 const app = express();
@@ -17,23 +17,20 @@ const PORT = process.env.PORT || 8080;
 const db = require('./models');
 
 // Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
 
 // Set Handlebars.
-var exphbs = require("express-handlebars");
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+const {createSeedData} = require('./utils/createSeedData');
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
-app.get("/", function(req, res) {
- res.render("index", { user: score});
-});
 
-
-// Static directory
-app.use(express.static('public'));
 
 // Routes
 // =============================================================
+require('./routes/html-routes.js')(app);
 require('./routes/user-api-routes.js')(app);
 require('./routes/answer-api-routes.js')(app);
 
